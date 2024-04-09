@@ -99,8 +99,8 @@ class SelfAttention(nn.Module):
         xq = apply_rotary_embeddings(xq, freqs_complex,device=x.device)
         xk = apply_rotary_embeddings(xk, freqs_complex, device=x.device)
 
-        self.cache_k[:batch_size, : start_pos+seq_len] = xk
-        self.cache_v[:batch_size, : start_pos+seq_len]= xv
+        self.cache_k[:batch_size, start_pos : start_pos+seq_len] = xk
+        self.cache_v[:batch_size, start_pos : start_pos+seq_len]= xv
 
         
         keys = self.cache_k[:batch_size, : start_pos + seq_len]
