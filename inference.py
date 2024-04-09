@@ -41,9 +41,10 @@ class LLaMA:
         model_args.vocab_size = tokenizer.vocab_size()
 
         if device == "cuda":
-            torch.set_default_tensor_type(torch.cuda.HalfTensor)
+            torch.set_default_dtype(torch.cuda.HalfTensor)
         else:
-            torch.set_default_tensor_type(torch.BFloat16Tensor)
+            torch.set_default_dtype(torch.BFloat16Tensor)
+            print("BF16")
 
         model = Transformer(model_args).to(device)
 
