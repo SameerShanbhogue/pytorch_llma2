@@ -93,8 +93,8 @@ class SelfAttention(nn.Module):
         xv = self.wv(x)
 
         xq = xq.view(batch_size , seq_len,self.n_head_q,self.head_dim)
-        xk = xq.view(batch_size , seq_len,self.n_kv_heads,self.head_dim)
-        xv = xq.view(batch_size , seq_len,self.n_kv_heads,self.head_dim)
+        xk = xk.view(batch_size , seq_len,self.n_kv_heads,self.head_dim)
+        xv = xv.view(batch_size , seq_len,self.n_kv_heads,self.head_dim)
 
         xq = apply_rotary_embeddings(xq, freqs_complex,device=x.device)
         xk = apply_rotary_embeddings(xk, freqs_complex, device=x.device)
