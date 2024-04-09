@@ -102,6 +102,10 @@ class SelfAttention(nn.Module):
         self.cache_k[:batch_size, : start_pos+seq_len] = xk
         self.cache_v[:batch_size, : start_pos+seq_len]= xv
 
+        
+        keys = self.cache_k[:batch_size, : start_pos + seq_len]
+        values = self.cache_v[:batch_size, : start_pos + seq_len]
+
         keys = repeat_kv(keys, self.n_rep)
         values = repeat_kv(values, self.n_rep)
 
@@ -110,7 +114,7 @@ class SelfAttention(nn.Module):
         values = values.transpose(1,2)
 
         scores = torch.matmul(xq, keys.transpose(2,3))/math.sqrt(self.head_dim)
-        scores = F.softmax(scores.float(),dim=1).type_as(xq)
+        scores = F.softmax(scores.float(),dim=-1).type_as(xq)
 
         output = torch.matmul(scores,values)
         output = (output.transpose(1,2).contiguous().view(batch_size,seq_len,-1))
