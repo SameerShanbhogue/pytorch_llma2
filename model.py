@@ -57,7 +57,7 @@ def repeat_kv(x: torch.Tensor, n_rep:int)-> torch.Tensor:
     if n_rep ==1:
         return x
     return (
-        x[:,:,:None,:]
+        x[:,:,:,None,:]
         .expand(batch_size,seq_len,n_kv_heads,n_rep,head_dim)
         .reshape(batch_size,seq_len,n_kv_heads*n_rep,head_dim)
     )
