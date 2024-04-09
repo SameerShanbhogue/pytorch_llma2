@@ -122,7 +122,7 @@ class SelfAttention(nn.Module):
         return self.wo(output)
 
 class FeedForward(nn.Module):
-    def __init__(self, args = ModelArgs):
+    def __init__(self, args : ModelArgs):
         super().__init__()
 
         hidden_dim = 4 * args.dim
