@@ -199,7 +199,7 @@ class Transformer(nn.Module):
         freqs_complex = self.freqs_complex[start_pos:start_pos + seq_len]
 
         for layer in self.layers:
-            n = layer(h, start_pos, freqs_complex)
+            h = layer(h, start_pos, freqs_complex)
         h = self.norm(h)
         output = self.output(h).float()
         return output    
